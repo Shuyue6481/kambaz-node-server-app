@@ -1,5 +1,7 @@
 import express from "express";
 
+import "./Kambaz/Courses/model.js";
+import "./Kambaz/Enrollments/model.js";
 import Hello from "./Hello.js";
 import Lab5 from "./Lab5/index.js";
 import cors from "cors";
@@ -13,10 +15,14 @@ import EnrollmentRoutes from "./Kambaz/Enrollments/routes.js";
 import mongoose from "mongoose";
 import "dotenv/config";
 
-const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING ||"mongodb://127.0.0.1:27017/kambaz"
+const CONNECTION_STRING =
+  process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kambaz";
 mongoose.connect(CONNECTION_STRING);
+console.log("connect", CONNECTION_STRING);
+console.log("MONGO_CONNECTION_STRING:", process.env.MONGO_CONNECTION_STRING);
 
 const app = express();
+
 
 app.use(
   cors({
@@ -47,4 +53,10 @@ AssignmentRoutes(app);
 EnrollmentRoutes(app);
 Lab5(app);
 Hello(app);
+
 app.listen(process.env.PORT || 4000);
+// const port = process.env.PORT || 4000;
+// const host = "0.0.0.0"; 
+// app.listen(port, host, () => {
+//   console.log(`Server running on http://${host}:${port}`);
+// });
